@@ -116,16 +116,6 @@ export class RegisterProponents extends Component {
                 value={password2}
               />
             </div>
-            <div className="react__checkbox">
-              <label>Aluno</label>
-              <input
-                type="checkbox"
-                className="react__checkbox--input"
-                aluno={this.state.aluno}
-                onChange={this.handleChange}
-              />
-            </div>
-
             <div className="form-group">
               <button type="submit" className="btn btn-primary">
                 Register
