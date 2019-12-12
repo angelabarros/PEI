@@ -11,7 +11,7 @@ import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
 import Header from "./layout/Header";
-import Dashboard from "./initial/Dashboard";
+import InitialPage from "./initial/InitialPage";
 import DashboardBidder from "./initial/DashboardBidder";
 import DashboardProponent from "./initial/DashboardProponent";
 import Alerts from "./layout/Alerts";
@@ -51,7 +51,7 @@ class App extends Component {
               <Alerts />
               <div className="container">
                 <Switch>
-                  {/* <PrivateRoute exact path="/" component={Dashboard} /> */}
+                  <Route exact path="/" component={InitialPage} />
                   <PrivateRouteBidder
                     exact
                     path="/dashboardBidder"

@@ -1,0 +1,8 @@
+.imagem img {
+  opacity: 0.5;
+}
+
+.imagem .titulo {
+  color: #090;
+  text-align: right;
+}
