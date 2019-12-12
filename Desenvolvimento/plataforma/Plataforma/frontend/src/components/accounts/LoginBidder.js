@@ -25,7 +25,7 @@ export class LoginBidder extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+      return <Redirect to="/dashboardBidder" />;
     }
 
     const { email, password } = this.state;

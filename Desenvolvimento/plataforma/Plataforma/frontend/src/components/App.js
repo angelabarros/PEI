@@ -12,6 +12,8 @@ import AlertTemplate from "react-alert-template-basic";
 
 import Header from "./layout/Header";
 import Dashboard from "./initial/Dashboard";
+import DashboardBidder from "./initial/DashboardBidder";
+import DashboardProponent from "./initial/DashboardProponent";
 import Alerts from "./layout/Alerts";
 
 import Login from "./accounts/Login";
@@ -21,7 +23,8 @@ import RegisterBidder from "./accounts/RegisterBidder";
 import LoginProponent from "./accounts/LoginProponent";
 import RegisterProponent from "./accounts/RegisterProponent";
 
-import PrivateRoute from "./common/PrivateRoute";
+import PrivateRouteProponente from "./common/PrivateRouteProponente";
+import PrivateRouteBidder from "./common/PrivateRouteBidder";
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -48,7 +51,17 @@ class App extends Component {
               <Alerts />
               <div className="container">
                 <Switch>
-                  <PrivateRoute exact path="/" component={Dashboard} />
+                  {/* <PrivateRoute exact path="/" component={Dashboard} /> */}
+                  <PrivateRouteBidder
+                    exact
+                    path="/dashboardBidder"
+                    component={DashboardBidder}
+                  />
+                  <PrivateRouteProponente
+                    exact
+                    path="/dashboardProponent"
+                    component={DashboardProponent}
+                  />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/login/bidder" component={LoginBidder} />
                   <Route
