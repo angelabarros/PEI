@@ -15,6 +15,15 @@ class Task(models.Model):
         "", max_digits=5, decimal_places=2, validators=[MinValueValidator(0)])
     owner = models.ForeignKey(
         MyUser, related_name='tasks', on_delete=models.CASCADE, null=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome
+
+
+class Bid(models.Model):
+    proposta = models.DecimalField("", max_digits=7, decimal_places=2, validators=[MinValueValidator(0)])
+    data_proposta = models.DateField(auto_now_add=True)
+    bidder = models.ForeignKey(MyUser, related_name='bids', on_delete=models.CASCADE, null=True)
+    task = models.ForeignKey(Task, related_name='bids',on_delete=models.CASCADE)
+    

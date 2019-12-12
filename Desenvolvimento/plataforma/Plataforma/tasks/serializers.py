@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task
+from .models import Task,Bid
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -16,3 +16,17 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = ('id', 'nome', 'descricao', 'data_inicio', 'data_fim',
                   'preco', 'owner_name', 'owner_email',)
+
+class BidSerializer(serializers.ModelSerializer):
+    bidder_email = serializers.SerializerMethodField('get_bidder_email')
+    task_name = serializers.SerializerMethodField('get_task_name')
+
+    def get_task_name(self,obj):
+        return obj.task.nome
+
+    def get_bidder_email(self,obj):
+        return obj.bidder.email
+
+    class Meta:
+        model = Bid
+        fields = ('id','proposta','data_proposta','bidder_email','task','task_name',)
