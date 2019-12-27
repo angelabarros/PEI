@@ -25,12 +25,10 @@ export class Form extends Component {
       descricao,
       data_fim,
       preco
-      // user: { email, first_name, last_name, password },
-      // aluno: false
+      
     };
-    console.log(task);
+
     this.props.addTask(task);
-    //console.log("submit");
 
     this.setState({
       nome: "",
@@ -68,7 +66,7 @@ export class Form extends Component {
           </div>
           <div className="form-group">
             <label>Data Final</label>
-            <textarea
+            <input
               className="form-control"
               type="date"
               name="data_fim"
@@ -79,7 +77,7 @@ export class Form extends Component {
           </div>
           <div className="form-group">
             <label>Preço</label>
-            <textarea
+            <input
               className="form-control"
               type="number"
               name="preco"

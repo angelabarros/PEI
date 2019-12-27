@@ -56,7 +56,7 @@ export class RegisterProponents extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+      return <Redirect to="/dashboardProponent" />;
     }
 
     const { email, password, password2, first_name, last_name } = this.state;

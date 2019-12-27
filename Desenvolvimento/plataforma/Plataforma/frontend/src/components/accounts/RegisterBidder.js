@@ -55,7 +55,7 @@ export class RegisterBidder extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+      return <Redirect to="/dashboardBidder" />;
     }
 
     const { email, password, password2, first_name, last_name } = this.state;
@@ -143,7 +143,5 @@ export class RegisterBidder extends Component {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
-export default connect(mapStateToProps, { registerBidder, createMessage })(
-  RegisterBidder
-);
-//export default Register;
+
+export default connect(mapStateToProps, { registerBidder, createMessage })(RegisterBidder);

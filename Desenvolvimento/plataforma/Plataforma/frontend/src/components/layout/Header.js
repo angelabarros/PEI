@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
+import { dashboard } from "../../actions/auth";
 
 export class Header extends Component {
   static propTypes = {
@@ -20,6 +21,26 @@ export class Header extends Component {
             {user ? `Wellcome ${user.first_name} ${user.last_name}` : ""}
           </strong>
         </span>
+        {
+        user && user.isbidder ? <li className="nav-item mr-2">
+                                    <Link to="/dashboardBidder">
+                                    <button
+                                      className="nav-link btn btn-info btn-sm text-light"
+                                    >
+                                      Dashboard
+                                    </button>
+                                    </Link>
+                                  </li> : <li className="nav-item mr-2">
+                                            <Link to="/dashboardProponent">
+                                            <button
+                                              className="nav-link btn btn-info btn-sm text-light"
+                                            >
+                                              Dashboard
+                                            </button>
+                                            </Link>
+                                          </li>
+        }
+
         <li className="nav-item">
           <button
             onClick={this.props.logout}
@@ -76,4 +97,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logout })(Header);
+export default connect(mapStateToProps, { logout})(Header);

@@ -23,9 +23,7 @@ import RegisterBidder from "./accounts/RegisterBidder";
 import LoginProponent from "./accounts/LoginProponent";
 import RegisterProponent from "./accounts/RegisterProponent";
 
-import PrivateRouteProponente from "./common/PrivateRouteProponente";
-import PrivateRouteBidder from "./common/PrivateRouteBidder";
-
+import PrivateRoute from "./common/PrivateRoute";
 import { Provider } from "react-redux";
 import store from "../store";
 import { loadUser } from "../actions/auth";
@@ -52,12 +50,12 @@ class App extends Component {
               <div className="container">
                 <Switch>
                   <Route exact path="/" component={InitialPage} />
-                  <PrivateRouteBidder
+                  <PrivateRoute
                     exact
                     path="/dashboardBidder"
                     component={DashboardBidder}
                   />
-                  <PrivateRouteProponente
+                  <PrivateRoute
                     exact
                     path="/dashboardProponent"
                     component={DashboardProponent}
