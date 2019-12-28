@@ -11,8 +11,7 @@ class Task(models.Model):
     data_inicio = models.DateField(auto_now_add=True)
     data_fim = models.DateField(
         "Data Fim", auto_now=False, auto_now_add=False, null=True)
-    preco = models.DecimalField(
-        "", max_digits=5, decimal_places=2, validators=[MinValueValidator(0)])
+    preco = models.FloatField(default=0.00, validators=[MinValueValidator(0)])
     owner = models.ForeignKey(
         MyUser, related_name='tasks', on_delete=models.CASCADE, null=True)
     is_active = models.BooleanField(default=True)
@@ -22,7 +21,7 @@ class Task(models.Model):
 
 
 class Bid(models.Model):
-    proposta = models.DecimalField("", max_digits=7, decimal_places=2, validators=[MinValueValidator(0)])
+    proposta = models.FloatField(default=0.00, validators=[MinValueValidator(0)])
     data_proposta = models.DateField(auto_now_add=True)
     bidder = models.ForeignKey(MyUser, related_name='bids', on_delete=models.CASCADE, null=True)
     task = models.ForeignKey(Task, related_name='bids',on_delete=models.CASCADE)

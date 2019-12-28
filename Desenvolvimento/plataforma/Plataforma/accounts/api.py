@@ -17,7 +17,7 @@ class RegisterBidderAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response({
-            "bidder": RegBidderSerializer(user, context=self.get_serializer_context()).data,
+            "user": RegBidderSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user.user)[1]
         })
 
@@ -30,7 +30,7 @@ class RegisterProponentAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response({
-            "proponent": RegProponentSerializer(user, context=self.get_serializer_context()).data,
+            "user": RegProponentSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user.user)[1]
         })
 

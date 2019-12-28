@@ -5,7 +5,6 @@ from cuser.models import AbstractCUser
 
 class MyUser(AbstractCUser):
 	is_bidder = models.BooleanField(default=False)
-	is_proponent = models.BooleanField(default=False)
 
 	def __str__(self):
 		return  self.email	

@@ -28,7 +28,7 @@ class RegProponentSerializer(serializers.ModelSerializer):
 		fields = ('user',)
 	def create(self, validated_data):
 		user_data = validated_data.pop('user')
-		user = MyUser.objects.create(**user_data,is_proponent=True)
+		user = MyUser.objects.create(**user_data)
 		p=Proponent.objects.create(user=user)
 		return p
 
@@ -76,7 +76,7 @@ class LoginProponentSerializer(serializers.Serializer):
 		if user.exists():
 			user_obj = user.first()
 			if user_obj:
-				if user_obj.password==password and user_obj.is_proponent:
+				if user_obj.password==password and not user_obj.is_bidder:
 					return user_obj
 				else:
 					raise ValidationError("Credenciais erradas")

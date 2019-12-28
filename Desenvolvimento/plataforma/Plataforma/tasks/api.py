@@ -10,13 +10,13 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
-        if self.request.user.is_proponent:
+        if not self.request.user.is_bidder:
             return self.request.user.tasks.all()
         else:
             return Task.objects.all()
 
     def perform_create(self, serializer):
-        if self.request.user.is_proponent:
+        if not self.request.user.is_bidder:
             serializer.save(owner=self.request.user)
         else:
             raise ValidationError("Não é permitido")

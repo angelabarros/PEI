@@ -18,11 +18,11 @@ export class Header extends Component {
       <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
         <span className="navbar-text mr-3">
           <strong>
-            {user ? `Wellcome ${user.first_name} ${user.last_name}` : ""}
+            {user ? `Welcome ${user.first_name} ${user.last_name}` : ""}
           </strong>
         </span>
         {
-        user && user.isbidder ? <li className="nav-item mr-2">
+        user && user.is_bidder===true ? <li className="nav-item mr-2">
                                     <Link to="/dashboardBidder">
                                     <button
                                       className="nav-link btn btn-info btn-sm text-light"
@@ -66,7 +66,7 @@ export class Header extends Component {
         </li>
       </ul>
     );
-
+    
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
         <div className="container">

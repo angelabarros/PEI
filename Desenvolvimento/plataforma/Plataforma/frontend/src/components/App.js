@@ -11,9 +11,9 @@ import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
 import Header from "./layout/Header";
-import InitialPage from "./initial/InitialPage";
-import DashboardBidder from "./initial/DashboardBidder";
-import DashboardProponent from "./initial/DashboardProponent";
+import InitialPage from "./layout/InitialPage";
+import DashboardBidder from "./Dashboard/DashboardBidder";
+import DashboardProponent from "./Dashboard/DashboardProponent";
 import Alerts from "./layout/Alerts";
 
 import Login from "./accounts/Login";

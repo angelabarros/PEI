@@ -1,6 +1,6 @@
 import axios from "axios";
 import { tokenConfig } from "./auth";
-
+import { returnErrors } from "./messages";
 import { GET_TASKS, DELETE_TASK, ADD_TASK } from "./types";
 
 // GET TASKS
@@ -12,51 +12,35 @@ export const getTasks = () => (dispatch, getState) => {
         type: GET_TASKS,
         payload: res.data
       });
-      //console.log(res.data);
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 // DELETE LEADS
 export const deleteTask = id => dispatch => {
   axios
-    .delete(`/api/tasks/${id}/`)
+    .delete(`/api/tasks/${id}/`, tokenConfig(getState))
     .then(res => {
+      dispatch(createMessage({ deleteTask: "Task Deleted" }));
       dispatch({
         type: DELETE_TASK,
         payload: id
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 // ADD_TASK component
-export const addTask = ({ nome, descricao, data_fim, preco }) => (
-  dispatch,
-  getState
-) => {
-  // Headers
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-
-  // Request Body
-  const body = JSON.stringify({
-    nome,
-    descricao,
-    data_fim,
-    preco
-  });
-  console.log(body);
+export const addTask = task => ( dispatch,  getState) => {
+ 
   axios
-    .post("/api/tasks/", body, tokenConfig(getState))
+    .post("/api/tasks/", task, tokenConfig(getState))
     .then(res => {
+      dispatch(createMessage({ addTask: "Task Added" }));
       dispatch({
         type: ADD_TASK,
         payload: res.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };

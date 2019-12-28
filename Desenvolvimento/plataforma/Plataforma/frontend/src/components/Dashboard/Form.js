@@ -8,7 +8,7 @@ export class Form extends Component {
     nome: "",
     descricao: "",
     data_fim: "",
-    preco: ""
+    preco: 0.00
   };
 
   static propTypes = {
@@ -34,7 +34,7 @@ export class Form extends Component {
       nome: "",
       descricao: "",
       data_fim: "",
-      preco: ""
+      preco: 0.00
     });
   };
 
@@ -82,6 +82,9 @@ export class Form extends Component {
               type="number"
               name="preco"
               onChange={this.onChange}
+              min="0"
+              max="9999.99"
+              step=".01"
               value={preco}
             />
           </div>

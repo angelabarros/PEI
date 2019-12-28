@@ -16,10 +16,45 @@ export class Tasks extends Component {
   }
 
   render() {
+    const { user } = this.props
     return (
       <Fragment>
-        <h2>Tarefas</h2>
-        <table className="table table-striped">
+        <h2 className="mt-5">Tarefas</h2>
+        <div className="card-rows">
+          {this.props.tasks.map(tasks => (
+            <div className="card bg-light mb-3 mt-3" key={tasks.id}>
+              <div className="card-header">Nome: {tasks.nome}</div>
+              <div className="card-body">
+                <h5 className="card-title">Preço: {tasks.preco} €</h5>
+                <p className="card-text">Descrição: {tasks.descricao}</p>
+                <p className="card-text"><small className="text-muted">Data de término: {tasks.data_fim}</small></p>
+                <div>
+                  { user && user.is_bidder===false ? <button
+                    onClick={this.props.deleteTask.bind(this, tasks.id)}
+                    className="btn btn-danger btn-sm"
+                    style={{float: "right"}}
+                  >
+                    Delete
+                  </button> : ""
+                  }
+                </div>               
+              </div>
+            </div>
+            ))}
+          </div>
+      </Fragment>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  tasks: state.tasks.tasks
+});
+
+export default connect(mapStateToProps, { getTasks, deleteTask })(Tasks);
+
+/*
+<table className="table table-striped">
           <thead>
             <tr>
               <th>Nome</th>
@@ -50,13 +85,4 @@ export class Tasks extends Component {
             ))}
           </tbody>
         </table>
-      </Fragment>
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  tasks: state.tasks.tasks
-});
-
-export default connect(mapStateToProps, { getTasks, deleteTask })(Tasks);
+*/
