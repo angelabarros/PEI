@@ -12,4 +12,5 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const CLEAR_LEADS = "CLEAR_LEADS";
-export const BID_TASKS = "BID_TASKS";
+export const ADD_BID_TASK = "ADD_BID_TASK";
+export const GET_BIDS_TASK = "GET_BIDS_TASK";

@@ -13,7 +13,9 @@ export const getTasks = () => (dispatch, getState) => {
         payload: res.data
       });
     })
-    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // DELETE LEADS
@@ -27,25 +29,13 @@ export const deleteTask = id => dispatch => {
         payload: id
       });
     })
-    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
-export const bidTask = id => (dispatch, getState) => {
-  const config = tokenConfig(getState)
-  config.headers["task"]=`${id}`
-  console.log(config)
-  axios.get(`/api/registar/bid/`, config)
-    .then(res => {
-      dispatch({
-        type: BID_TASKS,
-        payload: res.data
-      });
-    })
-    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
-};
 // ADD_TASK component
-export const addTask = task => ( dispatch,  getState) => {
- 
+export const addTask = task => (dispatch, getState) => {
   axios
     .post("/api/tasks/", task, tokenConfig(getState))
     .then(res => {
@@ -55,5 +45,7 @@ export const addTask = task => ( dispatch,  getState) => {
         payload: res.data
       });
     })
-    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

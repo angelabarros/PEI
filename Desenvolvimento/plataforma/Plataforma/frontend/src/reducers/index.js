@@ -3,10 +3,12 @@ import tasks from "./tasks";
 import errors from "./errors";
 import messages from "./messages";
 import auth from "./auth";
+import bids from "./bids";
 
 export default combineReducers({
   tasks,
   errors,
   messages,
-  auth
+  auth,
+  bids
 });

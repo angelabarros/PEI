@@ -6,11 +6,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case BID_TASKS:
-      return {
-        ...state,
-        bids: action.payload
-      };
     case GET_TASKS:
       return {
         ...state,
