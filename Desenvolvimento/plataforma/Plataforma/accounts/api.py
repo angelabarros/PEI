@@ -6,7 +6,8 @@ from knox.auth import TokenAuthentication
 from tasks.serializers import TaskSerializer
 from django.core import serializers
 from tasks.models import Task
-from accounts.models import Bidder
+from accounts.models import Bidder,Proponent
+from rest_framework.mixins import UpdateModelMixin
 
 
 class RegisterBidderAPI(generics.GenericAPIView):
@@ -21,10 +22,25 @@ class RegisterBidderAPI(generics.GenericAPIView):
             "token": AuthToken.objects.create(user.user)[1]
         })
 
+class UpdateBidderAPI(generics.RetrieveUpdateAPIView):
+    permissions_classes = [permissions.IsAuthenticated, ]
+
+    serializer_class = RegBidderSerializer
+
+    def update(self,request,*args,**kwargs):
+        serializer = self.serializer_class(request.user,data=request.data,partial=True)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        
+        return Response({
+            "user": RegBidderSerializer(user, context=self.get_serializer_context()).data,
+                    })
+
+
 
 class RegisterProponentAPI(generics.GenericAPIView):
     serializer_class = RegProponentSerializer
-
+    queryset= Proponent.objects.all()
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -33,6 +49,23 @@ class RegisterProponentAPI(generics.GenericAPIView):
             "user": RegProponentSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user.user)[1]
         })
+
+
+
+class UpdateProponentAPI(generics.RetrieveUpdateAPIView):
+    permissions_classes = [permissions.IsAuthenticated, ]
+
+    serializer_class = RegProponentSerializer
+
+    def update(self,request,*args,**kwargs):
+        serializer = self.serializer_class(request.user,data=request.data,partial=True)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": RegProponentSerializer(user, context=self.get_serializer_context()).data,
+                    })
+
+
 
 
 class LoginBidderAPI(generics.GenericAPIView):
@@ -84,3 +117,4 @@ class UserAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+

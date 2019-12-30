@@ -21,6 +21,21 @@ class RegBidderSerializer(serializers.ModelSerializer):
 		b=Bidder.objects.create(user=user,aluno=aluno_data)
 		return b
 
+
+	def update(self,instance,validated_data):
+		for(key,value) in validated_data.pop('user').items():
+			setattr(instance,key,value)
+
+		instance.save()
+
+		b= Bidder.objects.get(user_id=instance.id)
+		for(key,value) in validated_data.items():
+			setattr(b,key,value)
+		b.save()
+		return b
+
+
+
 class RegProponentSerializer(serializers.ModelSerializer):
 	user = MyUserSerializer()
 	class Meta:
@@ -31,6 +46,20 @@ class RegProponentSerializer(serializers.ModelSerializer):
 		user = MyUser.objects.create(**user_data)
 		p=Proponent.objects.create(user=user)
 		return p
+
+	def update(self,instance,validated_data):
+		for(key,value) in validated_data.pop('user').items():
+			setattr(instance,key,value)
+
+		instance.save()
+
+		p= Proponent.objects.get(user_id=instance.id)
+		for(key,value) in validated_data.items():
+			setattr(p,key,value)
+		p.save()
+		return p
+
+
 
 
 class LoginBidderSerializer(serializers.Serializer):
