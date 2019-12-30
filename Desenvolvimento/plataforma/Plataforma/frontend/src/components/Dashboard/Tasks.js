@@ -2,13 +2,15 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { getTasks, deleteTask } from "../../actions/tasks";
+import { getTasks, deleteTask, bidTask } from "../../actions/tasks";
 
 export class Tasks extends Component {
   static propTypes = {
     tasks: PropTypes.array.isRequired,
     getTasks: PropTypes.func.isRequired,
-    deleteTask: PropTypes.func.isRequired
+    deleteTask: PropTypes.func.isRequired,
+    bidTask: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
@@ -16,7 +18,8 @@ export class Tasks extends Component {
   }
 
   render() {
-    const { user } = this.props
+    const { user } = this.props.auth;
+
     return (
       <Fragment>
         <h2 className="mt-5">Tarefas</h2>
@@ -28,16 +31,24 @@ export class Tasks extends Component {
                 <h5 className="card-title">Preço: {tasks.preco} €</h5>
                 <p className="card-text">Descrição: {tasks.descricao}</p>
                 <p className="card-text"><small className="text-muted">Data de término: {tasks.data_fim}</small></p>
-                <div>
-                  { user && user.is_bidder===false ? <button
-                    onClick={this.props.deleteTask.bind(this, tasks.id)}
-                    className="btn btn-danger btn-sm"
-                    style={{float: "right"}}
-                  >
-                    Delete
-                  </button> : ""
-                  }
-                </div>               
+                { user && user.is_bidder===false ?
+                  <div>
+                    <button
+                      onClick={this.props.deleteTask.bind(this, tasks.id)}
+                      className="btn btn-danger btn-sm"
+                      style={{float: "right"}}
+                    >
+                      Delete
+                    </button> 
+                      <button
+                        onClick={this.props.bidTask.bind(this, tasks.id)}
+                        className="btn btn-primary btn-sm mr-3"
+                        style={{float: "right"}}
+                      >
+                        Bids
+                      </button>
+                  </div>
+                : ""}             
               </div>
             </div>
             ))}
@@ -48,41 +59,8 @@ export class Tasks extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.tasks.tasks
+  tasks: state.tasks.tasks,
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { getTasks, deleteTask })(Tasks);
-
-/*
-<table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Descrição</th>
-              <th>Data Final</th>
-              <th>Preço</th>
-              <th>Proponente</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.tasks.map(tasks => (
-              <tr key={tasks.id}>
-                <td>{tasks.nome}</td>
-                <td>{tasks.descricao}</td>
-                <td>{tasks.data_fim}</td>
-                <td>{tasks.preco}</td>
-                <td>{tasks.owner_name}</td>
-                <td>
-                  <button
-                    onClick={this.props.deleteTask.bind(this, tasks.id)}
-                    className="btn btn-danger btn-sm"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-*/
+export default connect(mapStateToProps, { getTasks, deleteTask,bidTask })(Tasks);

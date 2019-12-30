@@ -1,4 +1,4 @@
-import { GET_TASKS, DELETE_TASK, ADD_TASK } from "../actions/types";
+import { GET_TASKS, DELETE_TASK, ADD_TASK, BID_TASKS } from "../actions/types";
 
 const initialState = {
   tasks: []
@@ -6,6 +6,11 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case BID_TASKS:
+      return {
+        ...state,
+        bids: action.payload
+      };
     case GET_TASKS:
       return {
         ...state,

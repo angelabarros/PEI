@@ -1,7 +1,7 @@
 import axios from "axios";
 import { tokenConfig } from "./auth";
 import { returnErrors } from "./messages";
-import { GET_TASKS, DELETE_TASK, ADD_TASK } from "./types";
+import { GET_TASKS, DELETE_TASK, ADD_TASK, BID_TASKS } from "./types";
 
 // GET TASKS
 export const getTasks = () => (dispatch, getState) => {
@@ -30,6 +30,19 @@ export const deleteTask = id => dispatch => {
     .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
+export const bidTask = id => (dispatch, getState) => {
+  const config = tokenConfig(getState)
+  config.headers["task"]=`${id}`
+  console.log(config)
+  axios.get(`/api/registar/bid/`, config)
+    .then(res => {
+      dispatch({
+        type: BID_TASKS,
+        payload: res.data
+      });
+    })
+    .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+};
 // ADD_TASK component
 export const addTask = task => ( dispatch,  getState) => {
  
