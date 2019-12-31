@@ -1,7 +1,7 @@
 import { ADD_BID_TASK, GET_BIDS_TASK } from "../actions/types";
 
 const initialState = {
-  tasks: []
+  bids: []
 };
 
 export default function(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function(state = initialState, action) {
     case ADD_BID_TASK:
       return {
         ...state,
-        bids: action.payload
+        bids: [...state.bids, action.payload]
       };
     case GET_BIDS_TASK:
       return {

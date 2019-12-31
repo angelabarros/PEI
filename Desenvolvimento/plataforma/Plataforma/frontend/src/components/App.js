@@ -14,6 +14,7 @@ import Header from "./layout/Header";
 import InitialPage from "./layout/InitialPage";
 import DashboardBidder from "./Dashboard/DashboardBidder";
 import DashboardProponent from "./Dashboard/DashboardProponent";
+import Bid from "./Dashboard/Bid";
 import Alerts from "./layout/Alerts";
 
 import Login from "./accounts/Login";
@@ -59,6 +60,11 @@ class App extends Component {
                     exact
                     path="/dashboardProponent"
                     component={DashboardProponent}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/registar/bid/:taskId"
+                    component={Bid}
                   />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/login/bidder" component={LoginBidder} />

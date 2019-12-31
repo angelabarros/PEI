@@ -34,7 +34,7 @@ class BidViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = BidSerializer
 
-    def get_queryset(self,id):
+    def get_queryset(self):
         t = Task.objects.get(id=self.request.query_params['task'])
         bids = t.bids.all()
 

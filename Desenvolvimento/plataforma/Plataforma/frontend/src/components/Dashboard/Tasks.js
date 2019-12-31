@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
+import { Link, Redirect } from "react-router-dom";
 import { getTasks, deleteTask } from "../../actions/tasks";
 import { getBidTask } from "../../actions/bids";
 export class Tasks extends Component {
@@ -44,13 +44,15 @@ export class Tasks extends Component {
                     >
                       Delete
                     </button>
-                    <button
-                      onClick={this.props.getBidTask.bind(this, tasks.id)}
-                      className="btn btn-primary btn-sm mr-3"
-                      style={{ float: "right" }}
-                    >
-                      Bids
-                    </button>
+                    <Link to={`/registar/bid/${tasks.id}`}>
+                      <button
+                        onClick={this.props.getBidTask.bind(this, tasks.id)}
+                        className="btn btn-primary btn-sm mr-3"
+                        style={{ float: "right" }}
+                      >
+                        Bids
+                      </button>
+                    </Link>
                   </div>
                 ) : (
                   ""

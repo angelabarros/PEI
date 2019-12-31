@@ -23,10 +23,6 @@ export const getBidTask = id => (dispatch, getState) => {
     config.headers["Authorization"] = `Token ${token}`;
   }
 
-  //const config = tokenConfig(getState);
-  //config.headers["task"] = id;
-  // console.log(config);
-
   axios
     .get("/api/registar/bid/", config)
     .then(res => {
@@ -34,23 +30,8 @@ export const getBidTask = id => (dispatch, getState) => {
         type: GET_BIDS_TASK,
         payload: res.data
       });
-    }, console.log(config))
+    })
     .catch(err =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );
 };
-
-// // GET TASKS
-// export const getTasks = () => (dispatch, getState) => {
-//   axios
-//     .get("/api/tasks/", tokenConfig(getState))
-//     .then(res => {
-//       dispatch({
-//         type: GET_TASKS,
-//         payload: res.data
-//       });
-//     })
-//     .catch(err =>
-//       dispatch(returnErrors(err.response.data, err.response.status))
-//     );
-// };

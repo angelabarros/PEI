@@ -1,4 +1,4 @@
-import { GET_TASKS, DELETE_TASK, ADD_TASK, BID_TASKS } from "../actions/types";
+import { GET_TASKS, DELETE_TASK, ADD_TASK } from "../actions/types";
 
 const initialState = {
   tasks: []

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { tokenConfig } from "./auth";
 import { returnErrors } from "./messages";
-import { GET_TASKS, DELETE_TASK, ADD_TASK, BID_TASKS } from "./types";
+import { GET_TASKS, DELETE_TASK, ADD_TASK } from "./types";
 
 // GET TASKS
 export const getTasks = () => (dispatch, getState) => {
