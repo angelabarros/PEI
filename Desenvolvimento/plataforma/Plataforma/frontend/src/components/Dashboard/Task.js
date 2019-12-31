@@ -20,8 +20,9 @@ export class Task extends Component {
     
     onSubmit = e => {
         e.preventDefault();
+        
         const { proposta } = this.state;
-        this.props.addBidTask(this.props.task.id, proposta)
+        this.props.addBidTask( this.props.task.id, proposta)
         
         this.setState({
           proposta: 0.00
@@ -32,6 +33,7 @@ export class Task extends Component {
     render() {
         const { proposta } = this.state
         const {user, task} = this.props
+
         return (
             <Fragment>
                 <div className="card bg-light mb-3 mt-3" key={task.id}>
@@ -40,14 +42,14 @@ export class Task extends Component {
                         <h5 className="card-title">Preço: {task.preco} €</h5>
                         <p className="card-text">Descrição: {task.descricao}</p>
                         <p className="card-text">
-                        <small className="text-muted">
+                        <small className="text-muted">console.log("aaaaaaaaaaaaaaaa")
                             Data de término: {task.data_fim}
                         </small>
                         </p>
                         {user && user.is_bidder === false ? (
                         <div>
                             <button
-                            onClick={this.props.deleteTask(task.id)}
+                            onClick={this.props.deleteTask.bind(this, task.id)}
                             className="btn btn-danger btn-sm"
                             style={{ float: "right" }}
                             >
@@ -55,7 +57,7 @@ export class Task extends Component {
                             </button>
                             <Link to={`/registar/bid/${task.id}`}>
                                 <button
-                                    onClick={this.props.getBidTask(task.id)}
+                                    onClick={this.props.getBidTask.bind(this, task.id)}
                                     className="btn btn-primary btn-sm mr-3"
                                     style={{ float: "right" }}
                                 >
@@ -66,7 +68,7 @@ export class Task extends Component {
                         ) : (
                         <div style={{float: "right"}}>
                             <button 
-                                onClick={this.onSubmit.bind(this)}
+                                onClick={this.onSubmit}
                                 className="btn btn-primary btn-sm mr-3" 
                                 >Bid</button>
 
@@ -75,7 +77,7 @@ export class Task extends Component {
                                 style={{maxWidth: "100px"}}
                                 type="number"
                                 name="proposta"
-                                onChange={this.onChange.bind(this)}
+                                onChange={this.onChange}
                                 min="0"
                                 max="9999.99"
                                 step=".01"

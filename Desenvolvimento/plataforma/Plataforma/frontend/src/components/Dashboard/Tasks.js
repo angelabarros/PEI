@@ -8,7 +8,8 @@ export class Tasks extends Component {
 
   static propTypes = {
     tasks: PropTypes.array.isRequired,
-    getTasks: PropTypes.func.isRequired
+    getTasks: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
   };
 
  componentDidMount() {
@@ -16,14 +17,13 @@ export class Tasks extends Component {
   }
 
   render() {
-    const { user } = this.props.auth;
-
+    
     return (
       <Fragment>
         <h2 className="mt-5">Tarefas</h2>
         <div className="card-rows">
           {this.props.tasks.map(tasks => (
-            <Task task={tasks} user={user} key={tasks.id} deleteTask={deleteTask} getBidTask={getBidTask} addBidTask={addBidTask}/>
+            <Task task={tasks} user={this.props.auth.user} key={tasks.id} deleteTask={deleteTask} getBidTask={getBidTask} addBidTask={addBidTask}/>
           ))}
         </div>
       </Fragment>

@@ -18,7 +18,6 @@ export class LoginProponent extends Component {
   onSubmit = e => {
     e.preventDefault();
     this.props.loginProponent(this.state.email, this.state.password);
-    console.log("submit");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
