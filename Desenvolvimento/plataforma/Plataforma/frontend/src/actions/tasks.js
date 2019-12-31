@@ -19,7 +19,7 @@ export const getTasks = () => (dispatch, getState) => {
 };
 
 // DELETE LEADS
-export const deleteTask = id => dispatch => {
+export const deleteTask = id => (dispatch, getState) => {
   axios
     .delete(`/api/tasks/${id}/`, tokenConfig(getState))
     .then(res => {
