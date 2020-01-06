@@ -8,7 +8,7 @@ export class Form extends Component {
     nome: "",
     descricao: "",
     data_fim: "",
-    preco: 0.00
+    preco: 0.0
   };
 
   static propTypes = {
@@ -25,7 +25,6 @@ export class Form extends Component {
       descricao,
       data_fim,
       preco
-      
     };
 
     this.props.addTask(task);
@@ -34,7 +33,7 @@ export class Form extends Component {
       nome: "",
       descricao: "",
       data_fim: "",
-      preco: 0.00
+      preco: 0.0
     });
   };
 
