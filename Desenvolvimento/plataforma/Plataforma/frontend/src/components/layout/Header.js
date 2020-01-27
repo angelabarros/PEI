@@ -4,52 +4,103 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 import { dashboard } from "../../actions/auth";
+import {ButtonToolbar, DropdownButton,Dropdown} from 'react-bootstrap';
+import icon from "../../images/icon.png"
+
 
 export class Header extends Component {
-  static propTypes = {
-    auth: PropTypes.object.isRequired,
-    logout: PropTypes.func.isRequired
-  };
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    var image ={
+  height:50
+}
+    const { isAuthenticated,user} = this.props.auth;
 
     const authLinks = (
+
       <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
         <span className="navbar-text mr-3">
           <strong>
-            {user ? `Welcome ${user.first_name} ${user.last_name}` : ""}
+            {user ? `Welcome ${user.user.first_name} ${user.user.last_name}` : ""}
+
           </strong>
         </span>
         {
-        user && user.is_bidder===true ? <li className="nav-item mr-2">
-                                    <Link to="/dashboardBidder">
-                                    <button
-                                      className="nav-link btn btn-info btn-sm text-light"
-                                    >
-                                      Dashboard
-                                    </button>
-                                    </Link>
-                                  </li> : <li className="nav-item mr-2">
-                                            <Link to="/dashboardProponent">
-                                            <button
-                                              className="nav-link btn btn-info btn-sm text-light"
+        user && user.user.is_bidder===true ? <li className="nav-item mr-2">
+
+                                       <ButtonToolbar>
+                                            <DropdownButton
+                                              drop={'down'}
+                                              variant="secondary"
+                                              title={` Menu `}
+                                              id={`dropdown-button-drop-down`}
+                                              key={'down'}
                                             >
-                                              Dashboard
-                                            </button>
-                                            </Link>
+                                              <Dropdown.Item eventKey="1" href="/#/dashboardBidder">
+                                                    See Tasks
+                                              </Dropdown.Item>
+                                              <Dropdown.Item eventKey="2" href="/#/ongoing"> 
+
+                                                On Going tasks
+
+                                              </Dropdown.Item>
+                                              <Dropdown.Item eventKey="2" href="/#/profileB"> 
+
+                                                Profile
+
+                                              </Dropdown.Item>
+
+                                              <Dropdown.Divider />
+
+                                              <Dropdown.Item onClick={this.props.logout} eventKey="3">
+                                                Logout
+                                              </Dropdown.Item>
+
+                                            </DropdownButton>                                       
+                                           </ButtonToolbar>
+
+                                  </li> : <li className="nav-item mr-2">
+                                    <ButtonToolbar>
+                                            <DropdownButton
+                                              drop={'down'}
+                                              variant="secondary"
+                                              title={` Menu `}
+                                              id={`dropdown-button-drop-down`}
+                                              key={'down'}
+                                            >
+                                              <Dropdown.Item eventKey="1" href="/#/dashboardProponent">
+                                                    My Tasks
+                                              </Dropdown.Item>
+
+                                              <Dropdown.Item eventKey="2" href="/#/register/task"> 
+
+                                                  Post a Task
+
+                                              </Dropdown.Item>
+                                              
+                                              <Dropdown.Item eventKey="2" href="/#/ongoing"> 
+
+                                                On Going tasks
+
+                                              </Dropdown.Item>
+                                              <Dropdown.Item eventKey="2" href="/#/profileP"> 
+
+                                                Profile
+
+                                              </Dropdown.Item>
+
+                                              <Dropdown.Divider />
+
+                                              <Dropdown.Item onClick={this.props.logout} eventKey="3" >
+                                                Logout
+                                              </Dropdown.Item>
+
+                                            </DropdownButton>                                       
+                                           </ButtonToolbar>
+                                           
                                           </li>
         }
-
-        <li className="nav-item">
-          <button
-            onClick={this.props.logout}
-            className="nav-link btn btn-info btn-sm text-light"
-          >
-            Logout
-          </button>
-        </li>
-      </ul>
+   </ul>
     );
 
     const guestLinks = (
@@ -83,7 +134,7 @@ export class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <a className="navbar-brand" href="#">
-              Geeks4Hire
+              <img src={icon} style={image}/>
             </a>
           </div>
           {isAuthenticated ? authLinks : guestLinks}

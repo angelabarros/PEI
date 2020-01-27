@@ -4,9 +4,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 export class Register extends Component {
-  static propTypes = {
-    isAuthenticated: PropTypes.bool
-  };
 
   render() {
     if (this.props.isAuthenticated) {
@@ -21,7 +18,7 @@ export class Register extends Component {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Proponent</h5>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p className="card-text">  A Proponent in Geeks4Hire is someone that as a need for software developers with quality. Just specify the task you need and choose the developer suitable to your needs </p>
                 <Link to={"/register/proponent"}>
                 <button type="button" className="btn btn-primary">
                   Proponent
@@ -34,8 +31,8 @@ export class Register extends Component {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Bidder</h5>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <Link to={"/register/bidder"}>
+                <p className="card-text">A bidder in Geeks4Hire is someone with good IT skills that wants to work with flexibility. Just specify you skills and here you will find all kinds of job that suits their skills.</p>
+                 <Link to={"/register/bidder"}>
                 <button type="button" className="btn btn-primary">
                   Bidder
                 </button>
@@ -53,6 +50,5 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps)(Register);

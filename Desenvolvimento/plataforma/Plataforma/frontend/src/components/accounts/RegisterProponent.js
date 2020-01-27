@@ -5,21 +5,29 @@ import PropTypes from "prop-types";
 import { registerProponent } from "../../actions/auth";
 import { createMessage } from "../../actions/messages";
 
-export class RegisterProponents extends Component {
-  state = {
-    email: "",
-    password: "",
-    password2: "",
-    first_name: "",
-    last_name: "",
-    aluno: "false"
-  };
 
-  static propTypes = {
-    registerProponent: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
-  };
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
+
+export class RegisterProponent extends Component {
+    constructor(props) {
+    super(props);
+    this.state = {
+          isAuthenticated:false,
+          email: "",
+          password: "",
+          password2: "",
+          first_name: "",
+          last_name: "",
+          about_me:"",
+          link:"",
+          company:""
+  };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
   onSubmit = e => {
     e.preventDefault();
     const {
@@ -28,38 +36,37 @@ export class RegisterProponents extends Component {
       password2,
       first_name,
       last_name,
-      aluno
+      about_me,
+      link,
+      company
     } = this.state;
     if (password != password2) {
       this.props.createMessage({
         passwordNotMatch: "Passwords não são iguais"
       });
-    } else {
+    } 
+    else {
       const newUser = {
         email,
         first_name,
         last_name,
         password,
-        aluno
+        about_me,
+        link,
+        company
       };
       this.props.registerProponent(newUser);
     }
   };
-  handleChange = () => {
-    if (this.state.aluno == "false") {
-      this.setState({ aluno: "true" });
-    } else {
-      this.setState({ aluno: "false" });
-    }
-  };
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+    onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/dashboardProponent" />;
     }
 
-    const { email, password, password2, first_name, last_name } = this.state;
+    const { email, password, password2, first_name, last_name,about_me, link, company } = this.state;
 
     return (
       <div className="col-md-6 m-auto">
@@ -96,6 +103,16 @@ export class RegisterProponents extends Component {
                 value={last_name}
               />
             </div>
+               <div className="form-group">
+              <label>Company</label>
+              <input
+                type="name"
+                className="form-control"
+                name="company"
+                onChange={this.onChange}
+                value={company}
+              />
+            </div>
             <div className="form-group">
               <label>Password</label>
               <input
@@ -117,6 +134,26 @@ export class RegisterProponents extends Component {
               />
             </div>
             <div className="form-group">
+              <label> About Me </label>
+              <textarea
+                className="form-control"
+                type="text"
+                name="about_me"
+                onChange={this.onChange}
+                value={about_me}
+              />
+            </div>
+            <div className="form-group">
+              <label> Link </label>
+              <input
+                className="form-control"
+                type="url"
+                name="link"
+                onChange={this.onChange}
+                value={link}
+              />
+            </div>
+            <div className="form-group">
               <button type="submit" className="btn btn-primary">
                 Register
               </button>
@@ -131,10 +168,4 @@ export class RegisterProponents extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-export default connect(mapStateToProps, { registerProponent, createMessage })(
-  RegisterProponents
-);
-//export default Register;
+export default connect(mapStateToProps, { registerProponent, createMessage })(RegisterProponent);

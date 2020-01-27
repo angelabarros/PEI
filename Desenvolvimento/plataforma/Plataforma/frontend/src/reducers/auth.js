@@ -6,18 +6,26 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  UPDATE_PROP,
+  UPDATE_BIDDER
 } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
-  isLoading: false,
+  isLoading: true,
   user: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_BIDDER:
+    case UPDATE_PROP:
+      return{
+        ...state,
+        user:action.payload
+      };
     case USER_LOADING:
       return {
         ...state,

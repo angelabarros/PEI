@@ -4,34 +4,38 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loginBidder } from "../../actions/auth";
 
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 export class LoginBidder extends Component {
-  state = {
-    email: "",
-    password: ""
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      isAuthenticated:false
   };
-
-  static propTypes = {
-    loginBidder: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  onSubmit(event) {
+    event.preventDefault();
     this.props.loginBidder(this.state.email, this.state.password);
-    
-  };
-
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
-
+  }
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/dashboardBidder" />;
     }
 
-    const { email, password } = this.state;
+
+   const { email, password } = this.state;
 
     return (
-      <div className="col-md-6 m-auto">
+     <div className="col-md-6 m-auto">
         <div className="card card-body mt-5">
           <h2 className="text-center">Login</h2>
           <form onSubmit={this.onSubmit}>
@@ -70,8 +74,4 @@ export class LoginBidder extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, { loginBidder })(LoginBidder);
+export default connect(mapStateToProps,{loginBidder})(LoginBidder);

@@ -4,9 +4,9 @@ import Form from "./Form";
 
 export default function Dashboard() {
   return (
+
     <Fragment>
       <Tasks />
-      <Form />
     </Fragment>
   );
 }

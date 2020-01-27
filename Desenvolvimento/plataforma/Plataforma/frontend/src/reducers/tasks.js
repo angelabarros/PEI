@@ -1,7 +1,8 @@
-import { GET_TASKS, DELETE_TASK, ADD_TASK } from "../actions/types";
+import { GET_TASKS, DELETE_TASK, ADD_TASK, SEND_TASK} from "../actions/types";
 
 const initialState = {
-  tasks: []
+  tasks: [],
+  task:JSON.parse(localStorage.getItem("task"))
 };
 
 export default function(state = initialState, action) {
@@ -14,13 +15,19 @@ export default function(state = initialState, action) {
     case DELETE_TASK:
       return {
         ...state,
-        tasks: state.tasks.filter(lead => lead.id !== action.payload)
+        tasks: state.tasks.filter(task => task.id !== action.payload)
       };
     case ADD_TASK:
       return {
         ...state,
         tasks: [...state.tasks, action.payload]
       };
+    case SEND_TASK:
+      localStorage.setItem("task",JSON.stringify(action.payload));
+        return{
+          ...state,
+          task:action.payload 
+      }
     default:
       return state;
   }

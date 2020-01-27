@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import MyUser,Proponent, Bidder
+from .models import MyUser,Proponent, Bidder,Review
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 class MyUserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=MyUser
-		fields = ('id','email','first_name','last_name','password', 'is_bidder',)
+		fields = ('id','email','first_name','last_name','password', 'is_bidder','about_me','link','photo',)
 		extra_kwargs = {'password' : {'write_only' : True} }
 
 
@@ -13,14 +13,15 @@ class RegBidderSerializer(serializers.ModelSerializer):
 	user = MyUserSerializer()
 	class Meta:
 		model=Bidder
-		fields = ('user','aluno',)
+		fields = ('user','aluno','compt',)
+
 	def create(self, validated_data):
 		user_data = validated_data.pop('user')
 		user = MyUser.objects.create(**user_data,is_bidder=True)
 		aluno_data = validated_data.pop('aluno')
-		b=Bidder.objects.create(user=user,aluno=aluno_data)
+		compt=validated_data.pop('compt')
+		b=Bidder.objects.create(user=user,aluno=aluno_data,compt=compt)
 		return b
-
 
 	def update(self,instance,validated_data):
 		for(key,value) in validated_data.pop('user').items():
@@ -40,11 +41,12 @@ class RegProponentSerializer(serializers.ModelSerializer):
 	user = MyUserSerializer()
 	class Meta:
 		model=Proponent
-		fields = ('user',)
+		fields = ('user','company',)
 	def create(self, validated_data):
 		user_data = validated_data.pop('user')
 		user = MyUser.objects.create(**user_data)
-		p=Proponent.objects.create(user=user)
+		company=validated_data.pop('company')
+		p=Proponent.objects.create(user=user,company=company)
 		return p
 
 	def update(self,instance,validated_data):
@@ -58,8 +60,6 @@ class RegProponentSerializer(serializers.ModelSerializer):
 			setattr(p,key,value)
 		p.save()
 		return p
-
-
 
 
 class LoginBidderSerializer(serializers.Serializer):
@@ -113,6 +113,13 @@ class LoginProponentSerializer(serializers.Serializer):
 				raise ValidationError("Credenciais erradas")
 		else:
 			raise ValidationError("Credenciais erradas")
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
 '''
 class ListBidder(serializers.Serializer):
 	user=MyUserSerializer

@@ -1,17 +1,15 @@
-import { ADD_BID_TASK, GET_BIDS_TASK } from "../actions/types";
-
+import { ADD_BID, GET_BIDS } from "../actions/types";
 const initialState = {
   bids: []
 };
-
 export default function(state = initialState, action) {
   switch (action.type) {
-    case ADD_BID_TASK:
+    case ADD_BID:
       return {
         ...state,
         bids: [...state.bids, action.payload]
       };
-    case GET_BIDS_TASK:
+    case GET_BIDS:
       return {
         ...state,
         bids: action.payload

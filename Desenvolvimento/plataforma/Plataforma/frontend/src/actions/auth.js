@@ -9,7 +9,9 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  UPDATE_PROP,
+  UPDATE_BIDDER
 } from "./types";
 
 //------------------------- Bidder----------------------
@@ -68,7 +70,10 @@ export const registerBidder = ({
   first_name,
   last_name,
   password,
-  aluno
+  about_me,
+  link,
+  aluno,
+  compt
 }) => dispatch => {
   // Headers
   const config = {
@@ -79,8 +84,9 @@ export const registerBidder = ({
 
   // Request Body
   const body = JSON.stringify({
-    user: { email, first_name, last_name, password },
-    aluno: aluno
+    user: { email, first_name, last_name, password, about_me,link},
+    aluno: aluno,
+    compt:compt
   });
   console.log(body);
   axios
@@ -135,7 +141,9 @@ export const registerProponent = ({
   first_name,
   last_name,
   password,
-  aluno
+  about_me,
+  link,
+  company
 }) => dispatch => {
   // Headers
   const config = {
@@ -146,9 +154,7 @@ export const registerProponent = ({
 
   // Request Body
   const body = JSON.stringify({
-    user: { email, first_name, last_name, password },
-    aluno: aluno
-  });
+    user: { email, first_name, last_name, password,about_me,link}, company:company  });
   console.log(body);
   axios
     .post("/api/auth/registar/proponent", body, config)
@@ -200,3 +206,39 @@ export const tokenConfig = getState => {
 
   return config;
 };
+
+//UPADTE-PROP
+export const updateProp = (about_me,link) => (dispatch,getState) => {
+  // Headers
+  
+  // Request Body
+  const body = JSON.stringify({user:{about_me,link}});
+  axios
+    .put("/api/auth/atualizar/proponent", body, tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: UPDATE_PROP,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
+};
+export const updateBidder = (about_me,link, compt) => (dispatch,getState) => {
+  // Headers
+  // Request Body
+  const body = JSON.stringify({user:{about_me,link},compt});
+  axios
+    .put("/api/auth/atualizar/bidder", body, tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: UPDATE_BIDDER,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
+};
+
