@@ -5,15 +5,39 @@ import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 import { dashboard } from "../../actions/auth";
 import {ButtonToolbar, DropdownButton,Dropdown} from 'react-bootstrap';
+import { MDBCol, MDBFormInline, MDBBtn } from "mdbreact";
 import icon from "../../images/icon.png"
+import {filterTask,getTasks} from "../../actions/tasks";
 
-
+function stringToArray(props) {
+  props = props.replace('"', '')
+  props = props.replace('"', '')
+  props = props.replace('[', '')
+  props = props.replace(']', '')
+  props = props.split("'").join("")
+  props = props.split(" ").join("")
+  props = props.split(",")
+return props;
+}
 export class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            filtered: []
+        }
+        
+    }
+
+
+
+
 
   render() {
     var image ={
   height:50
 }
+
+
     const { isAuthenticated,user} = this.props.auth;
 
     const authLinks = (
@@ -22,9 +46,10 @@ export class Header extends Component {
         <span className="navbar-text mr-3">
           <strong>
             {user ? `Welcome ${user.user.first_name} ${user.user.last_name}` : ""}
-
           </strong>
-        </span>
+       </span>
+   
+  
         {
         user && user.user.is_bidder===true ? <li className="nav-item mr-2">
 
@@ -145,7 +170,9 @@ export class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  tasks: state.tasks.tasks,
+  filtered:state.tasks.filtered
 });
 
-export default connect(mapStateToProps, { logout})(Header);
+export default connect(mapStateToProps, { logout,filterTask,getTasks})(Header);

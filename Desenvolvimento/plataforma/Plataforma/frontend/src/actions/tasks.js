@@ -1,7 +1,7 @@
 import axios from "axios";
 import { tokenConfig } from "./auth";
 import { returnErrors } from "./messages";
-import { GET_TASKS, DELETE_TASK, ADD_TASK,SEND_TASK } from "./types";
+import { GET_TASKS, DELETE_TASK, ADD_TASK,SEND_TASK,FILTERED_TASK } from "./types";
 
 
 // GET TASKS
@@ -75,3 +75,7 @@ export const addTask = task => (dispatch, getState) => {
 export const sendTask = task =>(dispatch) => {
     dispatch({type:SEND_TASK,payload:task});
 };
+
+export const filterTask = tasks =>(dispatch)=>{
+  dispatch({type:FILTERED_TASK,payload:tasks})
+}

@@ -3,11 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {addBid} from "../../actions/bids";
 import { Link} from "react-router-dom";
-import { getTasks, sendTask } from "../../actions/tasks";
+import { getTasks, sendTask,filterTask } from "../../actions/tasks";
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import {getReview} from "../../actions/reviews";
 import {makeRating } from "./ProfileBidder"
+import { IconButton } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+
 import{
 	Button,
 	Card,
@@ -45,17 +48,65 @@ export class Tasks extends Component {
 
     this.state = {
       show: false,
-      task_id: null
+      task_id: null,
+      filtered:[]
     };
 
     this.handleShow=this.handleShow.bind(this)
+    this.handleChange = this.handleChange.bind(this);
 
   }
 
 
+
+
+handleChange(e) {
+        // Variable to hold the original version of the list
+    let currentList = [];
+        // Variable to hold the filtered list before putting into state
+    let newList = [];
+
+        // If the search bar isn't empty
+    if (e.target.value !== "") {
+            // Assign the original list to currentList
+      currentList = this.props.tasks;
+
+            // Use .filter() to determine which items should be displayed
+            // based on the search terms
+      newList = currentList.filter(item => {
+                // change current item to lowercas
+
+
+        item=JSON.stringify(item)
+
+        const lc = item.toString().toLowerCase();
+
+                // change search term to lowercase
+        const filter = e.target.value.toLowerCase();
+                // check to see if the current list item includes the search term
+                // If it does, it will be added to newList. Using lowercase eliminates
+                // issues with capitalization in search terms and search content
+        return lc.includes(filter);
+      });
+    } else {
+            // If the search bar is empty, set newList to original task list
+      newList = this.props.tasks;
+    }
+        // Set the filtered state based on what our rules added to newList
+    this.setState({
+      filtered: newList
+    });
+  }
   componentDidMount() {
     this.props.getTasks();
+   this.setState({filtered:this.props.tasks})
   }
+ componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.props.tasks !== prevProps.tasks) {
+    this.setState({filtered:this.props.tasks});
+  }
+}
 
   handleShow = (id) => this.setState({show:true,task_id:id});
   
@@ -84,8 +135,19 @@ export class Tasks extends Component {
     return (
       <Fragment>
         <h2 className="mt-5">Tasks</h2>
+            <span>
+                      <div className="d-flex">
+        <p/>
+                       <input className="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" onChange={this.handleChange} />
+                       <IconButton aria-label="delete"  onClick={()=>this.props.filterTask(this.state.filtered)}>
+
+                        <SearchIcon />
+                        </IconButton>
+      
+                      </div>
+                      </span>
         <div className="card-rows">
-          {this.props.tasks.map(task => (
+          {this.state.filtered.map(task => (
             // array = stringToArray(task.compt),
             // console.log(array),
             <div className="card bg-light mb-3 mt-3" key={task.id}>
@@ -152,10 +214,12 @@ export class Tasks extends Component {
       </Fragment>
     );
   }
+
 }
 const mapStateToProps = state => ({
   task:state.tasks.task,
   tasks: state.tasks.tasks,
   auth: state.auth,
+  filtered:state.tasks.filtered
 });
-export default connect(mapStateToProps,{getTasks,sendTask})(Tasks);
+export default connect(mapStateToProps,{getTasks,sendTask,filterTask})(Tasks);

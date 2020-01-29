@@ -22,5 +22,6 @@ export const ADD_REVIEW="ADD_REVIEW";
 export const GET_REVIEW="GET_REVIEW";
 export const ADD_ONGOING="ADD_ONGOING";
 export const GET_ONGOING="GET_ONGOING";
-export const UPDATE_ONGOING="UPDATE_ONGOING"
+export const UPDATE_ONGOING="UPDATE_ONGOING";
+export const FILTERED_TASK="FILTERED_TASK";
 

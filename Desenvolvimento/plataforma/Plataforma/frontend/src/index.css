@@ -39,3 +39,6 @@ body {
     color: rgb(0,0,0);
   }
 
+.bg-secondary-lightgray {
+  background-color: lightgray !important;
+}

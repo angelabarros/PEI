@@ -29,6 +29,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import {getReview} from "../../actions/reviews";
+import "../../index.css"
 
 function makeRating(rev){
   var x=0
@@ -163,14 +164,14 @@ onChange = e => this.setState({ [e.target.name]:e.target.value});
                     <h2 className="mt-5">     Reviews</h2>
                         <div className="card-rows">
                       	{this.props.reviews.reviews.map(review => (
-                      		<div className="card bg-secondary mb-3 mt-3" key={review.id}>
+                      		<div className="card bg-secondary-lightgray mb-3 mt-3" key={review.id}>
 	              		  <div className="card-header">   
 	              		  </div>
 	              		  <div className="card-body">
-	              		  	<p className="card-text"><b>Availability</b> <p></p><Rating name="read-only" value={review.crit_1} readOnly /></p>
-	              		  	<p className="card-text"><b>Clarity</b> <p></p><Rating name="read-only" value={review.crit_2} readOnly /></p>
-	              		  	<p className="card-text"><b>Payment on Time</b> <p></p><Rating name="read-only" value={review.crit_3} readOnly /></p>
-	              		  	<p className="card-text"><b>Comment </b> <p></p>{review.comentario}</p>
+	              		  	<p className="card-text"><b>Availability</b> <br/><Rating name="read-only" value={review.crit_1} readOnly /></p>
+	              		  	<p className="card-text"><b>Clarity</b> <br/><Rating name="read-only" value={review.crit_2} readOnly /></p>
+	              		  	<p className="card-text"><b>Payment on Time</b> <br/><Rating name="read-only" value={review.crit_3} readOnly /></p>
+	              		  	<p className="card-text"><b>Comment </b> <br/>{review.comentario}</p>
 	              		  </div>	              							
                       </div>                            				
                       ))}
