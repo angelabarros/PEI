@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import {Image,Modal} from "react-bootstrap";
-import img2 from "../../assets/img/mike.jpg";
+import img2 from "../../../../img/profile.jpg";
 import{
 	Card,
 	CardHeader,
@@ -146,7 +146,7 @@ onChange = e => this.setState({ [e.target.name]:e.target.value});
                 </div>
                 <CardBody>
                   <div className="author">
-                    <a href="#pablo" onClick={e=> e.preventDefault()}>
+                    <a>
                       <img alt="..." className="avatar border-grey" src={img2}/>
                       <h5 className="title">
                         {task.owner.user.first_name} {task.owner.user.last_name}
