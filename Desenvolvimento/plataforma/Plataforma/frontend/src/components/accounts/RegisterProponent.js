@@ -154,7 +154,7 @@ export class RegisterProponent extends Component {
               />
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn-blue btn-sm mr-3">
                 Register
               </button>
             </div>

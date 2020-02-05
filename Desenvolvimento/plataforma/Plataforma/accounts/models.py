@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from cuser.models import AbstractCUser
 
 class MyUser(AbstractCUser):
-	about_me = models.CharField(max_length=500)
+	about_me = models.CharField(max_length=10000)
 	link = models.URLField(max_length=128,blank=True)
 	photo = models.ImageField(default="../img/profile.jpg")
 	is_bidder = models.BooleanField(default=False)
@@ -32,4 +32,9 @@ class Review(models.Model):
 	crit_2 = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)])
 	crit_3 = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)])
 	comentario = models.CharField(max_length=1000)
+
+
+
+
+
 

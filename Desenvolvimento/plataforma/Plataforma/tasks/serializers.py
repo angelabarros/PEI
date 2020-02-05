@@ -1,11 +1,45 @@
 from rest_framework import serializers
-from .models import Task,Bid,OnGoing
-from accounts.serializers import MyUserSerializer, RegProponentSerializer
+from .models import Task,Bid,OnGoing,Chat
+from accounts.serializers import MyUserSerializer, RegProponentSerializer, RegBidderSerializer
 from accounts.models import Proponent, Bidder
 
 class TaskSerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField('get_owner')
     # owner_email = serializers.SerializerMethodField('get_owner_email')
+    worker_name = serializers.SerializerMethodField('get_worker_name')
+    worker_about = serializers.SerializerMethodField('get_worker_about')
+    worker_compt = serializers.SerializerMethodField('get_worker_compt')
+
+
+    def get_worker_name(self, obj):
+        task_id=obj.id
+        task=Task.objects.get(id=task_id).ongoing.all()
+        if(task.count()):
+            task=task[0]
+            return task.worker.first_name + ' '+  task.worker.last_name
+        else:
+            return 'null'
+
+    def get_worker_about(self, obj):
+        task_id=obj.id
+        task=Task.objects.get(id=task_id).ongoing.all()
+        if(task.count()):
+            task=task[0]
+            return task.worker.about_me
+        else:
+            return 'null'
+
+    def get_worker_compt(self, obj):
+        task_id=obj.id
+        task=Task.objects.get(id=task_id).ongoing.all()
+        
+        if(task.count()):
+            task=task[0]
+            b=Bidder.objects.get(user=task.worker)  
+            return b.compt  
+        else:
+            return 'null'
+
 
     def get_owner(self, obj):
         user = Proponent.objects.get(user=obj.owner)
@@ -14,12 +48,13 @@ class TaskSerializer(serializers.ModelSerializer):
 
     # def get_owner_email(self, obj):
     #     return obj.owner.email
+
  
 
     class Meta:
         model = Task
         fields = ('id', 'nome', 'descricao_breve', 'data_inicio', 'data_fim',
-                  'preco_min','preco_max','owner' ,'especificacao','compt','onGoing',)
+                  'preco_min','preco_max','owner' ,'especificacao','compt','onGoing', 'worker_name', 'worker_about','worker_compt')
 
 class BidSerializer(serializers.ModelSerializer):
     bidder_nome = serializers.SerializerMethodField('get_bidder_name')
@@ -65,3 +100,18 @@ class OnGoingSerializer(serializers.ModelSerializer):
         fields = ('id','worker_name','worker_email','task',)
             
         
+class ChatSerializer(serializers.ModelSerializer):
+    
+    worker_name = serializers.SerializerMethodField('get_worker_name')
+
+    def get_worker_name(self, obj):
+        task_id=obj.about_task
+        task=Task.objects.get(id=task_id.id).ongoing.all()
+        task=task[0]
+        return task.worker.first_name + ' '+  task.worker.last_name
+
+
+
+    class Meta:
+        model = Chat
+        fields = ('id','time_stamp','user_rec','user_manda','about_task','mensagem','worker_name')

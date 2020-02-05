@@ -26,6 +26,7 @@ import ProfileProp from "./Dashboard/ProfileProp";
 import ProfileBidder from "./Dashboard/ProfileBidder";
 import Bids from "./Dashboard/Bids"
 import Task from "./Dashboard/Task";
+import Chat from "./Dashboard/Chat"
 import PrivateRoute from "./common/PrivateRoute";
 import OnGoing from "./Dashboard/OnGoing"
 import { Provider } from "react-redux";
@@ -115,7 +116,11 @@ class App extends Component {
                     path="/ongoing"
                     component={OnGoing}
                     />
-                   
+                    <PrivateRoute
+                    exact
+                    path="/chat"
+                    component={Chat}
+                    />
 
                   
                 </Switch>

@@ -134,6 +134,7 @@ handleChange(e) {
     }));
     return (
       <Fragment>
+      
         <h2 className="mt-5">Tasks</h2>
             <span>
                       <div className="d-flex">
@@ -201,7 +202,7 @@ handleChange(e) {
                 
               <Col>
               <Link to={'/task' } >
-                <button type="button" className="btn btn-primary" style={{ float: "right" }} onClick={()=>this.props.sendTask(task)} >
+                <button type="button" className="btn-blue btn-sm mr-3" style={{ float: "right" }} onClick={()=>this.props.sendTask(task)} >
                   Show More
                 </button>
               </Link>

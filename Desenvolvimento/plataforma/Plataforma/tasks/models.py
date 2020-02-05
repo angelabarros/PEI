@@ -38,4 +38,19 @@ class OnGoing(models.Model):
     task = models.ForeignKey(Task, related_name='ongoing',on_delete=models.CASCADE)
 
 
-    
+
+
+
+
+class Chat(models.Model):
+    user_rec = models.ForeignKey(
+        MyUser, related_name='chat_rec', on_delete=models.CASCADE, null=True)
+    user_manda = models.ForeignKey(
+        MyUser, related_name='chat_manda', on_delete=models.CASCADE, null=True)
+
+    about_task = models.ForeignKey(
+        Task, related_name='task', on_delete=models.CASCADE, null=True)
+
+    mensagem = models.CharField(max_length=1000)
+
+    time_stamp = models.DateTimeField(auto_now_add=True)

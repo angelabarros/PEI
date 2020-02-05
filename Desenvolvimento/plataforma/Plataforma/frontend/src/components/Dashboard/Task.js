@@ -233,7 +233,7 @@ onChange = e => this.setState({ [e.target.name]:e.target.value});
                 </button>
                </Link> 
                     <Link to='/bids'>
-                        <button type="button" className="btn btn-primary" >
+                        <button type="button" className="btn-blue btn-sm mr-3" >
                           See offers
                         </button>
                   </Link>                                 
@@ -242,7 +242,7 @@ onChange = e => this.setState({ [e.target.name]:e.target.value});
             <div>
                 <button
                       onClick={(e)=>this.onSubmit(task.id,e)}
-                      className="btn btn-primary btn-sm mr-3"
+                      className="btn-blue btn-sm mr-3"
                       style={{ float: "right" }}
                     >
                       Fazer Proposta

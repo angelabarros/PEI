@@ -8,7 +8,6 @@ from django.core import serializers
 from tasks.models import Task
 from accounts.models import Bidder,Proponent,MyUser
 
-
 class RegisterBidderAPI(generics.GenericAPIView):
     serializer_class = RegBidderSerializer
 
@@ -153,3 +152,5 @@ class ReviewAPI(generics.ListCreateAPIView):
         else:
             u=MyUser.objects.get(email=email)
             return u.reviews_rec.all()
+
+

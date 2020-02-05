@@ -24,4 +24,9 @@ export const ADD_ONGOING="ADD_ONGOING";
 export const GET_ONGOING="GET_ONGOING";
 export const UPDATE_ONGOING="UPDATE_ONGOING";
 export const FILTERED_TASK="FILTERED_TASK";
+export const GET_CHAT ="GET_CHAT";
+export const ADD_CHAT ="ADD_CHAT";
+export const SEND_TASKON ="SEND_TASKON";
+
+
 

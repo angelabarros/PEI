@@ -2,7 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {addBid} from "../../actions/bids";
-import {addOngoing} from "../../actions/ongoing";
+import {addOngoing,updateOngoing} from "../../actions/ongoing";
+import {updateTask} from "../../actions/tasks";
 import { Link} from "react-router-dom";
 import {getBid} from "../../actions/bids";
 import Chip from '@material-ui/core/Chip';
@@ -29,7 +30,7 @@ import {Image,Modal} from "react-bootstrap";
 import img1 from "../../assets/img/jan-sendereks.jpg";
 import img2 from "../../../../img/profile.jpg";
 import { makeStyles } from '@material-ui/core/styles';
-
+import '../../index.css';
 function makeRating(rev){
   var x=0
   var count=0
@@ -86,10 +87,10 @@ export class Bids extends Component{
                                     </p>
                                 </div>
                                 <div>
-                                  <button type="button" className="btn btn-primary"  onClick={()=>handleShow(bid)} >
+                                  <button type="button" className="btn-blue btn-sm mr-3"  onClick={()=>handleShow(bid)} >
                                         See more info
                                   </button>
-                                  {console.log(this.state)}
+                                  
                                   <Modal show={show} onHide={handleClose}>
                                       <Card>
                                         <CardBody>
@@ -120,11 +121,7 @@ export class Bids extends Component{
                                               </div>
                                               <Rating name="read-only" value={ makeRating(this.props.reviews.reviews) } readOnly />
                                               <p></p>
-
-
-
-
-                                                          <button type="button" className="btn btn-primary" onClick={()=>{this.props.addOngoing(this.state.bid.bidder_id,this.props.task.id), this.props.history.push("/ongoing")}}>
+                                                      <button type="button" className="btn-blue btn-sm mr-3" onClick={()=>{this.props.addOngoing(this.state.bid.bidder_id,this.props.task.id), this.props.history.push("/ongoing")}}>
                                                           Choose this developer
                                                       </button>  
                                                       <p></p>
@@ -133,7 +130,7 @@ export class Bids extends Component{
                                                     <h2 className="mt-5">     Reviews</h2>
                                                       <div className="card-rows">
                                                       {this.props.reviews.reviews.map(review => (
-                                                        <div className="card bg-secondary mb-3 mt-3" key={review.id}>
+                                                        <div className="card bg-secondary-lightgray mb-3 mt-3" key={review.id}>
                                                       <div className="card-header">   
                                                       </div>
                                                       <div className="card-body">

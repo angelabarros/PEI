@@ -42,3 +42,12 @@ body {
 .bg-secondary-lightgray {
   background-color: lightgray !important;
 }
+.btn-blue{
+  font-weight: 600;
+  line-height: 1.35em;
+  text-transform: uppercase;
+  border:none;
+  background-color: #34495e ;
+  color:#FFFF;
+  transition: all 150ms linear;
+}

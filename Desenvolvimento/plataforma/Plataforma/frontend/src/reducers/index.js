@@ -7,6 +7,7 @@ import bids from "./bids";
 import bidders from "./bidders";
 import ongoing from "./ongoing";
 import reviews from "./reviews";
+import chat from "./chat";
 
  //reducers produce the state of your application
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
   bids,
   bidders,
   reviews,
-  ongoing
+  ongoing,
+  chat
 });

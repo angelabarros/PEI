@@ -20,7 +20,7 @@ export class Register extends Component {
                 <h5 className="card-title">Proponent</h5>
                 <p className="card-text">  A Proponent in Geeks4Hire is someone that as a need for software developers with quality. Just specify the task you need and choose the developer suitable to your needs </p>
                 <Link to={"/register/proponent"}>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn-blue btn-sm mr-3">
                   Proponent
                 </button>
               </Link>
@@ -33,7 +33,7 @@ export class Register extends Component {
                 <h5 className="card-title">Bidder</h5>
                 <p className="card-text">A bidder in Geeks4Hire is someone with good IT skills that wants to work with flexibility. Just specify you skills and here you will find all kinds of job that suits their skills.</p>
                  <Link to={"/register/bidder"}>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn-blue btn-sm mr-3">
                   Bidder
                 </button>
               </Link>

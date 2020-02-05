@@ -1,7 +1,7 @@
-from tasks.models import Task, Bid
+from tasks.models import Task, Bid,Chat
 from accounts.models import MyUser
 from rest_framework import viewsets, permissions
-from .serializers import TaskSerializer, BidSerializer,OnGoingSerializer
+from .serializers import TaskSerializer, BidSerializer,OnGoingSerializer,ChatSerializer
 from rest_framework import generics, permissions
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse
@@ -80,7 +80,6 @@ class OnGoingAPI(viewsets.ModelViewSet):
 
     def perform_create(self,serializer):
         if not self.request.user.is_bidder:
-            print(self.request.data)
             test=Task.objects.get(id=self.request.data['task'])
             test.onGoing=1
             test.save()
@@ -94,6 +93,7 @@ class OnGoingAPI(viewsets.ModelViewSet):
             for i in self.request.user.worker.all():
                 query|=Task.objects.filter(id=i.task.id,onGoing=1)
                 query|=Task.objects.filter(id=i.task.id,onGoing=2)
+                query|=Task.objects.filter(id=i.task.id,onGoing=3)
             return query
 
 class UpdateTask(generics.RetrieveUpdateAPIView):
@@ -109,3 +109,52 @@ class UpdateTask(generics.RetrieveUpdateAPIView):
 
 
 
+
+
+
+class ChatAPI(generics.ListCreateAPIView):
+    permissions_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        task_id = request.data['about_task']
+        id = request.data['user_manda']
+        u = MyUser.objects.get(id=id)
+        task=Task.objects.get(id=task_id)
+
+        if(u.is_bidder):
+            user_rec=task.owner
+        else:
+            tasko=Task.objects.get(id=task_id).ongoing.all()
+            taskoo=tasko[0]
+            user_rec=taskoo.worker
+
+
+       
+
+
+        chat = serializer.save(user_manda=u,user_rec=user_rec,about_task=task)
+        return Response(ChatSerializer(chat, context=self.get_serializer_context()).data,
+                )
+
+    def get_queryset(self):
+        id=self.request.query_params['task_id']
+        task=Task.objects.get(id=id)
+
+        if(not self.request.user.is_bidder):
+            tasko=Task.objects.get(id=id).ongoing.all()
+            taskoo=tasko[0]
+            user_rec=taskoo.worker
+
+            query_set_1 = Chat.objects.filter(user_manda=self.request.user, user_rec=user_rec,about_task=task)
+            query_set_2 = Chat.objects.filter(user_manda=user_rec, user_rec=self.request.user,about_task=task)
+
+        else:    
+            user_rec = task.owner
+            query_set_1 = Chat.objects.filter(user_manda=self.request.user, user_rec=user_rec,about_task=task)
+            query_set_2 = Chat.objects.filter(user_manda=user_rec, user_rec=self.request.user,about_task=task)
+        
+
+        return (query_set_1 | query_set_2).order_by('time_stamp')

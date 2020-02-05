@@ -1,4 +1,4 @@
-import { ADD_ONGOING,GET_ONGOING,UPDATE_ONGOING } from "./types";
+import { ADD_ONGOING,GET_ONGOING,UPDATE_ONGOING,SEND_TASKON } from "./types";
 
 import axios from "axios";
 import { tokenConfig } from "./auth";
@@ -23,7 +23,7 @@ export const addOngoing = (worker,task) => (dispatch,getState) => {
   // Request Body
  
   const body = JSON.stringify({worker,task});
-  console.log(body)
+  //console.log(body)
   axios
     .post("/api/ongoing/", body, tokenConfig(getState))
     .then(res => {
@@ -53,4 +53,8 @@ export const updateOngoing = (task,onGoing) => (dispatch,getState) => {
     .catch(err => {
       dispatch(returnErrors(err.response.data, err.response.status));
     });
+};
+
+export const sendTaskOn = task =>(dispatch) => {
+    dispatch({type:SEND_TASKON,payload:task});
 };

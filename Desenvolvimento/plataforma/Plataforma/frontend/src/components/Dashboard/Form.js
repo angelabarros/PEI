@@ -38,12 +38,20 @@ export class Form extends Component {
       compt
     };
     this.props.addTask(task);
-    window.location.reload(false);
-  };
+    this.setState({
+      //redirect:false,
+      nome: "",
+      descricao_breve: "",
+      especificacao:"",
+      data_fim: "",
+      preco_min: 0.00,
+      preco_max:0.00,
+      compt:[]
+  });
+  }
   updateSkils = (event, values) => {
     event.preventDefault();
-    this.setState({compt: values}, ()=> {console.log(this.state.compt)}
-    )
+    this.setState({compt: values})
   }
   render() {
     //if(this.state.redirect){
@@ -89,11 +97,10 @@ export class Form extends Component {
               multiple
               id="fixed-tags-demo"
               options={skills}
-              //getOptionLabel={option => option.title}
+              value={compt}
               onChange={this.updateSkils}
               renderTags={(value, getTagProps) =>(
                 value.map((options, index) => (
-                  // console.log(value),
                   <Chip label={options} {...getTagProps({ index })} />
                 )))
               }
@@ -147,7 +154,7 @@ export class Form extends Component {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn-blue btn-sm mr-3">
               Submit
               </button>
           </div>

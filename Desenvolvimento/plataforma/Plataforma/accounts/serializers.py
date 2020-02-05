@@ -120,6 +120,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = '__all__'
 
+
+
 '''
 class ListBidder(serializers.Serializer):
 	user=MyUserSerializer

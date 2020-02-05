@@ -80,7 +80,7 @@ class ProfileProp extends React.Component{
 					</div>
 					<CardBody>
 						<div className="author">
-							<a href="#pablo" onClick={e=> e.preventDefault()}>
+							<a>
 								<img alt="..." className="avatar border-grey" src={img2}/>
 								<h5 className="title">
 									{user.first_name} {user.last_name}
